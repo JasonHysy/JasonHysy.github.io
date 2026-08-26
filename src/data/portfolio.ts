@@ -25,10 +25,11 @@ export interface LinkItem {
 
 export interface ProofItem {
   label: string;
-  value: string;
-  /** Numeric value to count up to when the strip scrolls into view. */
-  count?: { value: number; decimals?: number; prefix?: string; suffix: string };
+  title: string;
   context: string;
+  signal: string;
+  signalNote: string;
+  href?: string;
 }
 
 export interface FlowNode {
@@ -194,29 +195,36 @@ export const hero = {
 /* ------------------------------------------------------------------ */
 
 export const proofStrip = {
-  heading: "Evidence, not adjectives",
+  eyebrow: "Proof of work",
+  heading: "Built where claims get tested.",
+  description:
+    "A live product, peer-reviewed research, and a production data pipeline — work shaped by users, reviewers, and operating constraints.",
   items: [
     {
-      label: "Active production product",
-      value: "PrismaSub",
-      context: "Live Windows SaaS — OCR to LLM to bilingual subtitles.",
+      label: "Production product",
+      title: "PrismaSub",
+      context:
+        "A Windows product carrying OCR, LLM translation, authentication, billing, and reliability into one user-facing workflow.",
+      signal: "Live product",
+      signalNote: "Built and operated end to end",
+      href: "/work/prismasub",
     },
     {
-      label: "Peer-reviewed publication",
-      value: "ICPR 2024",
-      context: "Research co-author · VLTNet.",
+      label: "Published research",
+      title: "VLTNet",
+      context:
+        "Peer-reviewed zero-shot object navigation research, evaluated against a reported benchmark baseline.",
+      signal: "ICPR 2024",
+      signalNote: "+33.7% reported improvement",
+      href: "/work/vltnet",
     },
     {
-      label: "Daily news ingestion pipeline",
-      value: "200+ sources",
-      count: { value: 200, suffix: "+" },
-      context: "Processed daily at Presskit AI.",
-    },
-    {
-      label: "Improvement over the reported research baseline",
-      value: "33.7%",
-      count: { value: 33.7, decimals: 1, suffix: "%" },
-      context: "VLTNet · evaluated benchmark setting.",
+      label: "Applied ML systems",
+      title: "Presskit AI",
+      context:
+        "A daily ingestion and retrieval pipeline grounding AI responses in recently published news content.",
+      signal: "200+ sources",
+      signalNote: "Processed every day",
     },
   ] as ProofItem[],
 };
