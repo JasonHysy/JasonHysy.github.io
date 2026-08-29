@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { caseStudies, caseStudyOrder, type CaseStudy } from "@/data/portfolio";
@@ -122,7 +123,7 @@ export function CaseStudyLayout({ study, index }: CaseStudyLayoutProps) {
       <nav aria-label="More projects" className="border-t border-line dark:border-line-dark">
         <div className="shell py-12 md:py-16">
           <p className="eyebrow mb-6">More work</p>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {ordered.map((s) =>
               s.slug === study.slug ? (
                 <div
@@ -201,6 +202,26 @@ function BlockView({ block }: { block: CaseStudy["sections"][number]["blocks"][n
             {block.text}
           </p>
         </blockquote>
+      );
+    case "image":
+      return (
+        <figure>
+          <div className="panel overflow-hidden rounded-2xl bg-paper-deep/50 dark:bg-navy-deep/40">
+            <Image
+              src={block.src}
+              alt={block.alt}
+              width={block.width}
+              height={block.height}
+              sizes="(max-width: 768px) 100vw, 960px"
+              className="h-auto w-full"
+            />
+          </div>
+          {block.caption ? (
+            <figcaption className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-ink-soft dark:text-slate-soft">
+              {block.caption}
+            </figcaption>
+          ) : null}
+        </figure>
       );
     case "architecture":
       return (

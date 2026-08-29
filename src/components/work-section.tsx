@@ -2,9 +2,10 @@ import { requireStudy, selectedWork } from "@/data/portfolio";
 import { FeaturedProjectCard, ProjectCard } from "./project-card";
 import { SectionHeading } from "./section-heading";
 
-/** Selected Work: featured PrismaSub + the two supporting projects. */
+/** Selected Work: featured PrismaSub + three supporting projects. */
 export function WorkSection() {
   const prismasub = requireStudy("prismasub");
+  const visionAssist = requireStudy("visionassist");
   const rag = requireStudy("multimodal-video-qa-rag");
   const vltnet = requireStudy("vltnet");
 
@@ -25,9 +26,10 @@ export function WorkSection() {
         </div>
         <div className="space-y-6">
           <FeaturedProjectCard study={prismasub} />
-          <div className="grid gap-6 lg:grid-cols-2">
-            <ProjectCard study={rag} index="02" />
-            <ProjectCard study={vltnet} index="03" />
+          <div className="grid gap-6 lg:grid-cols-3">
+            <ProjectCard study={visionAssist} index="02" />
+            <ProjectCard study={rag} index="03" />
+            <ProjectCard study={vltnet} index="04" />
           </div>
         </div>
       </div>

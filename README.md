@@ -3,11 +3,12 @@
 Production portfolio for **Yisiyuan (Jason) Huang** — Software Engineer building
 production AI systems end to end.
 
-An editorial engineering portfolio with three evidence-backed case studies:
+An editorial engineering portfolio with four evidence-backed case studies:
 
 | Project | Route | Proof |
 | --- | --- | --- |
 | **PrismaSub** | `/work/prismasub` | Production ownership (live SaaS) |
+| **VisionAssist** | `/work/visionassist` | On-device perception and assistive product engineering |
 | **Multimodal Video QA RAG** | `/work/multimodal-video-qa-rag` | Inspectable public code (GitHub) |
 | **VLTNet** | `/work/vltnet` | Published research depth (ICPR 2024) |
 
@@ -111,6 +112,7 @@ from the public repository; unconfirmed items are also hidden from the site.
 
 - `/` — home (hero, proof strip, selected work, experience, capabilities, about, education & publication, contact)
 - `/work/prismasub` — PrismaSub case study
+- `/work/visionassist` — VisionAssist case study
 - `/work/vltnet` — VLTNet case study
 - `/work/multimodal-video-qa-rag` — RAG case study
 - `/sitemap.xml`, `/robots.txt`, `/icon.svg`, `/opengraph-image` — SEO assets

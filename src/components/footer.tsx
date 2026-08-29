@@ -56,6 +56,14 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               <li>
                 <ExternalLink
+                  href={siteConfig.links.visionAssistDemo}
+                  className="text-sm text-ink-soft transition-colors hover:text-accent-strong dark:text-slate-soft dark:hover:text-accent"
+                >
+                  VisionAssist — demo
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink
                   href={siteConfig.links.prismaSub}
                   className="text-sm text-ink-soft transition-colors hover:text-accent-strong dark:text-slate-soft dark:hover:text-accent"
                 >

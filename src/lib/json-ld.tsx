@@ -77,6 +77,20 @@ export function ragJsonLd() {
   };
 }
 
+export function visionAssistJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "VisionAssist",
+    url: siteConfig.links.visionAssistDemo,
+    applicationCategory: "AccessibilityApplication",
+    operatingSystem: "iOS 17+ on supported LiDAR-equipped iPhones",
+    description:
+      "An iPhone assistive-vision software prototype combining on-device object detection, ARKit LiDAR depth, directional HRTF audio, and cloud vision-language scene understanding.",
+    author: { "@type": "Person", name: siteConfig.name, url: siteConfig.siteUrl },
+  };
+}
+
 export function caseStudyJsonLd(study: CaseStudy) {
   switch (study.slug) {
     case "prismasub":
@@ -85,6 +99,8 @@ export function caseStudyJsonLd(study: CaseStudy) {
       return vltNetJsonLd();
     case "multimodal-video-qa-rag":
       return ragJsonLd();
+    case "visionassist":
+      return visionAssistJsonLd();
     default:
       return null;
   }

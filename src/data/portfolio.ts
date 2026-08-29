@@ -71,6 +71,14 @@ export type Block =
   | { type: "paragraph"; text: string }
   | { type: "bullets"; heading?: string; items: string[] }
   | { type: "quote"; text: string }
+  | {
+      type: "image";
+      src: string;
+      alt: string;
+      width: number;
+      height: number;
+      caption?: string;
+    }
   | { type: "architecture"; flow: ArchitectureFlow; caption?: string };
 
 export interface CaseStudySection {
@@ -124,6 +132,7 @@ export const siteConfig = {
 
   links: {
     prismaSub: "https://prismasub.com",
+    visionAssistDemo: "https://jasonhysy.github.io/vision-assist-demo/",
     vltNet: "https://vlt-lzson.github.io/",
     githubRag: "https://github.com/JasonHysy/multimodal-video-qa-rag",
     /** TODO_LINKEDIN_URL — not confirmed; keep `null` and the UI stays hidden. */
@@ -237,7 +246,7 @@ export const selectedWork = {
   eyebrow: "Selected Work",
   title: "Selected Work",
   description:
-    "Production systems, inspectable code, and experimentally validated AI research.",
+    "Production systems, on-device perception, inspectable code, and experimentally validated AI research.",
 };
 
 /* ------------------------------------------------------------------ */
@@ -447,6 +456,188 @@ export const caseStudies: CaseStudy[] = [
           {
             type: "paragraph",
             text: "PrismaSub is live. Active production product — source code remains private.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    slug: "visionassist",
+    name: "VisionAssist",
+    eyebrow: "On-device AI · Assistive Technology",
+    title: "iPhone-powered visual assistance with spatial audio",
+    role: "Software Engineer · Applied AI",
+    dates: "2025 — 2026",
+    location: "iPhone · iOS 17+",
+    intro:
+      "An iPhone-based assistive-vision prototype combining on-device object detection, ARKit LiDAR depth, directional HRTF cues, and cloud VLM scene understanding for blind and low-vision users.",
+    metaDescription:
+      "VisionAssist is an iPhone assistive-vision software prototype combining YOLO26n Core ML detection, ARKit LiDAR depth, HRTF directional audio, and cloud vision-language scene understanding.",
+    tags: [
+      "Swift",
+      "React Native",
+      "Expo",
+      "YOLO26n",
+      "Core ML",
+      "ARKit",
+      "LiDAR",
+      "HRTF",
+      "Vision-Language Models",
+      "iOS",
+    ],
+    links: [
+      {
+        label: "Explore interactive demo",
+        href: "https://jasonhysy.github.io/vision-assist-demo/",
+        external: true,
+      },
+      { label: "Read case study", href: "/work/visionassist" },
+    ],
+    publicNote:
+      "Working iPhone software prototype. Wearable enclosure remains a concept awaiting physical validation.",
+    sections: [
+      {
+        id: "overview",
+        heading: "Project overview",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "VisionAssist is a working iPhone software prototype for blind and low-vision users. It gives the phone two focused roles: local camera-and-LiDAR obstacle awareness, and cloud vision-language scene understanding using the current view together with a spoken question.",
+          },
+          {
+            type: "paragraph",
+            text: "The iPhone is the compute and sensing platform. Its rear camera, LiDAR sensor, native inference path, network connection, and audio stack replace a separate wearable computer. The proposed shoulder-and-neck enclosure is a concept; the software path is implemented, while the physical mount still requires real-world validation.",
+          },
+          {
+            type: "image",
+            src: "/projects/visionassist/overview.png",
+            alt: "VisionAssist concept showing an iPhone mounted in a shoulder harness with camera, LiDAR, on-device compute, and cloud scene-understanding flow",
+            width: 1200,
+            height: 630,
+            caption:
+              "Wearable concept rendering — software implemented; enclosure and physical ergonomics pending validation.",
+          },
+          {
+            type: "quote",
+            text: "The phone is the system: sensing, local perception, connectivity, and audio feedback stay in one device the user already carries.",
+          },
+        ],
+      },
+      {
+        id: "local-perception",
+        heading: "Local obstacle awareness",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The low-latency safety path stays on the iPhone. Camera frames feed a bundled YOLO26n INT8 Core ML model, while ARKit scene depth supplies nearby geometry. The app combines object location and depth into qualitative hazard states, then maps left, center, and right hazards into directional headphone cues.",
+          },
+          {
+            type: "architecture",
+            caption:
+              "Local perception path — no cloud round trip for nearby obstacle awareness.",
+            flow: {
+              id: "visionassist-local",
+              title: "On-device perception and cueing",
+              nodes: [
+                {
+                  label: "Rear Camera + LiDAR",
+                  caption: "Captures the current scene and ARKit depth on a supported iPhone.",
+                },
+                {
+                  label: "YOLO26n Core ML",
+                  caption: "Runs bundled INT8 object detection on device.",
+                },
+                {
+                  label: "Depth Association",
+                  caption: "Connects detected objects with nearby scene-depth evidence.",
+                },
+                {
+                  label: "Hazard Assessment",
+                  caption: "Expresses direction and qualitative proximity without claiming meter-level certainty.",
+                },
+                {
+                  label: "HRTF Audio Cue",
+                  caption: "Places concise alerts toward the detected hazard direction.",
+                },
+              ],
+              support: [
+                {
+                  label: "Runtime Capability Check",
+                  caption: "Confirms ARKit scene-depth support before enabling the LiDAR path.",
+                },
+                {
+                  label: "Audio-first Feedback",
+                  caption: "Keeps the camera view available while alerts remain concise and directional.",
+                },
+              ],
+            },
+          },
+        ],
+      },
+      {
+        id: "scene-understanding",
+        heading: "Cloud scene understanding",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "For questions that require semantic reasoning rather than immediate obstacle response, VisionAssist packages the latest camera view with the user’s spoken question. A cloud vision-language model returns a concise explanation that the app speaks back through the same audio experience.",
+          },
+          {
+            type: "architecture",
+            caption:
+              "Scene and question travel together so the response is grounded in the user’s current view.",
+            flow: {
+              id: "visionassist-cloud",
+              title: "Visual question and response flow",
+              nodes: [
+                {
+                  label: "Spoken Question",
+                  caption: "Captures what the user wants to understand about the scene.",
+                },
+                {
+                  label: "Current Camera View",
+                  caption: "Pairs the latest visual context with the question.",
+                },
+                {
+                  label: "Cloud VLM",
+                  caption: "Reasons over the scene and query together.",
+                },
+                {
+                  label: "Concise Explanation",
+                  caption: "Returns a short response designed for spoken delivery.",
+                },
+                {
+                  label: "Audio Response",
+                  caption: "Speaks the grounded scene description to the user.",
+                },
+              ],
+            },
+          },
+        ],
+      },
+      {
+        id: "boundaries",
+        heading: "Validation boundary",
+        blocks: [
+          {
+            type: "bullets",
+            items: [
+              "The iPhone software prototype and its two perception flows are implemented.",
+              "The wearable enclosure is a concept awaiting physical validation for fit, stability, heat, battery use, and sensor alignment.",
+              "LiDAR functionality targets supported iPhones on iOS 17+ and is gated by ARKit scene-depth capability at runtime.",
+              "Directional HRTF cues require compatible wired, USB, or Bluetooth headphones, including AirPods.",
+              "VisionAssist is intended to support orientation; it is not a replacement for a cane, guide dog, or professional mobility guidance.",
+            ],
+          },
+        ],
+      },
+      {
+        id: "demo",
+        heading: "Interactive demo",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The public VisionAssist demo presents the wearable concept, the local sensing path, and the cloud scene-understanding path in a focused product walkthrough.",
           },
         ],
       },
@@ -784,6 +975,7 @@ export const caseStudies: CaseStudy[] = [
 /** Display order — PrismaSub is the featured project. */
 export const caseStudyOrder = [
   "prismasub",
+  "visionassist",
   "multimodal-video-qa-rag",
   "vltnet",
 ] as const;
